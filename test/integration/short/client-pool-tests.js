@@ -250,11 +250,11 @@ describe('Client', function () {
     before(helper.ccmHelper.start(helper.isCassandraGreaterThan('2.1') ? 2 : 1, {
       yaml: ['authenticator:PasswordAuthenticator'],
       jvmArgs: ['-Dcassandra.superuser_setup_delay_ms=0'],
-      sleep: 5000
+      sleep: 10000
     }));
     after(helper.ccmHelper.remove);
     var PlainTextAuthProvider = require('../../../lib/auth/plain-text-auth-provider.js');
-    it('should connect using the plain text authenticator', function (done) {
+    it('should connect using the plain text authenticator |smoke|', function (done) {
       var options = {authProvider: new PlainTextAuthProvider('cassandra', 'cassandra')};
       var client = newInstance(options);
       utils.times(100, function (n, next) {
@@ -299,7 +299,7 @@ describe('Client', function () {
       }, done);
     });
   });
-  describe('#connect() with ssl', function () {
+  describe('#connect() with ssl |smoke|', function () {
     before(helper.ccmHelper.start(1, {ssl: true}));
     after(helper.ccmHelper.remove);
     it('should connect to a ssl enabled cluster', function (done) {
